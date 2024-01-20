@@ -1,6 +1,30 @@
 document.addEventListener("DOMContentLoaded", function(){
     getProducts();
+    getCategories();
 });
+
+const getCategories = () => {
+    fetch("http://localhost:8080/categories")
+    .then((response) => {
+        return response.json();
+    }).then((data) => {
+        let categoryList = document.getElementById('categories');
+        
+        data.map((category) => {
+            let listItem = document.createElement('li');
+            listItem.innerHTML = category.name;
+            listItem.onclick = getProductsByCategory();
+            categoryList.appendChild(listItem);
+        });
+
+    }).catch((error) => {
+        console.log(error);
+    });
+}
+
+const getProductsByCategory = (categoryId) => {
+    
+}
 
 const getProducts = () => {
     fetch("http://localhost:8080/products").then((response) => {
